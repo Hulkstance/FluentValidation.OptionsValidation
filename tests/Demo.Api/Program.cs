@@ -1,8 +1,9 @@
-# FluentValidation.OptionsValidation
+using Demo.Api;
+using FluentValidation;
+using Microsoft.Extensions.Options;
 
-## Example usage
+var builder = WebApplication.CreateBuilder(args);
 
-```cs
 builder.Services.AddValidatorsFromAssemblyContaining<Program>(ServiceLifetime.Singleton);
 
 builder.Services
@@ -10,4 +11,9 @@ builder.Services
     .Bind(builder.Configuration.GetSection(ExampleOptions.SectionName))
     .ValidateFluentValidation()
     .ValidateOnStart();
-```
+
+var app = builder.Build();
+
+app.MapGet("/", (IOptions<ExampleOptions> options) => options.Value);
+
+app.Run();
