@@ -6,5 +6,5 @@ public class ExampleOptions
 
     public required string LogLevel { get; init; }
 
-    public required int Counter { get; init; }
+    public required int Retries { get; init; }
 }

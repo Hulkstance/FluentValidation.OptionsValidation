@@ -9,7 +9,7 @@ public class ExampleOptionsValidator : AbstractValidator<ExampleOptions>
         RuleFor(x => x.LogLevel)
             .IsEnumName(typeof(LogLevel));
 
-        RuleFor(x => x.Counter)
+        RuleFor(x => x.Retries)
             .InclusiveBetween(1, 10);
     }
 }
