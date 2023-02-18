@@ -11,7 +11,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Hulkstance.FluentValidation.OptionsValidation</PackageId>
     <Authors>Hulkstance</Authors>
-    <Description>FluentValidation support for options validation.</Description>
+    <Description>Adds FluentValidation support for IOptions validation.</Description>
     <RepositoryUrl>https://github.com/Hulkstance/FluentValidation.OptionsValidation</RepositoryUrl>
   </PropertyGroup>
 
