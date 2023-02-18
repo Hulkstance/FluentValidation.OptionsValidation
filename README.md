@@ -1,6 +1,6 @@
 # FluentValidation.OptionsValidation
 
-![CI](https://github.com/Hulkstance/FluentValidation.OptionsValidation/actions/workflows/release-main.yml/badge.svg)
+![CI](https://github.com/Hulkstance/FluentValidation.OptionsValidation/actions/workflows/CI.yml/badge.svg)
 [![NuGet](https://img.shields.io/nuget/vpre/Hulkstance.FluentValidation.OptionsValidation.svg)](https://www.nuget.org/packages/Hulkstance.FluentValidation.OptionsValidation)
 [![NuGet](https://img.shields.io/nuget/dt/Hulkstance.FluentValidation.OptionsValidation.svg)](https://www.nuget.org/packages/Hulkstance.FluentValidation.OptionsValidation) 
 
