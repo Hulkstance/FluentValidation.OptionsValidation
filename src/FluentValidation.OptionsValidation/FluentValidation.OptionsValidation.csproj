@@ -7,6 +7,14 @@
     <LangVersion>11</LangVersion>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Hulkstance.FluentValidation.OptionsValidation</PackageId>
+    <Authors>Hulkstance</Authors>
+    <Description>FluentValidation support for options validation.</Description>
+    <RepositoryUrl>https://github.com/Hulkstance/FluentValidation.OptionsValidation</RepositoryUrl>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
