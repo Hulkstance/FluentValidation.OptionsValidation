@@ -1,12 +1,13 @@
 using Nuke.Common;
 using Nuke.Common.CI;
+using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Utilities.Collections;
-using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using static Nuke.Common.IO.FileSystemTasks;
+using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 [ShutdownDotNetAfterServerBuild]
 partial class Build : NukeBuild
@@ -17,6 +18,7 @@ partial class Build : NukeBuild
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
     [Solution] readonly Solution Solution;
+    [GitRepository] readonly GitRepository GitRepository;
     [GitVersion] readonly GitVersion GitVersion;
 
     AbsolutePath SourceDirectory => RootDirectory / "src";
@@ -56,7 +58,8 @@ partial class Build : NukeBuild
 
             DotNetToolInstall(s => s
                 .SetPackageName("GitVersion.Tool")
-                .EnableGlobal());
+                .EnableGlobal()
+                .SetVersion("5.12.0"));
         });
 
     Target Compile => _ => _
