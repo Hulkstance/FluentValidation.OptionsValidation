@@ -9,14 +9,14 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 [GitHubActions("release-main",
     GitHubActionsImage.UbuntuLatest,
+    FetchDepth = 0,
     AutoGenerate = true,
-    OnPushBranches = new[] { "main", "develop" },
+    OnPushBranches = new[] { "main" },
     ImportSecrets = new[] { nameof(NuGetApiKey) },
-    InvokedTargets = new[] { nameof(Clean), nameof(NugetPush) },
-    FetchDepth = 0)]
+    InvokedTargets = new[] { nameof(NuGetPush) })]
 partial class Build
 {
-    [Parameter] readonly string NuGetPublishUrl = "https://api.nuget.org/v3/index.json";
+    [Parameter] string NuGetApiUrl = "https://api.nuget.org/v3/index.json";
     [Parameter] [Secret] readonly string NuGetApiKey;
 
     Target Pack => _ => _
@@ -34,25 +34,22 @@ partial class Build
                 .CombineWith(GetPackageProjects(), (s, p) => s.SetProject(p)));
         });
 
-    Target NugetPush => _ => _
-        .Requires(() => NuGetApiKey)
+    Target NuGetPush => _ => _
         .DependsOn(Pack)
         .OnlyWhenDynamic(() => IsCiBuild() && IsStableOrRelease())
+        .Requires(() => NuGetApiKey)
         .Executes(() =>
         {
-            PushNuGetPackages(NuGetPublishUrl, NuGetApiKey);
+            Assert.True(!string.IsNullOrEmpty(NuGetApiKey));
+
+            var packages = ArtifactsDirectory.GlobFiles("*.nupkg");
+
+            DotNetNuGetPush(s => s
+                .SetSource(NuGetApiUrl)
+                .SetApiKey(NuGetApiKey)
+                .CombineWith(packages, (s, p) => s
+                    .SetTargetPath(p)));
         });
-
-    void PushNuGetPackages(string githubPackageSource, string githubTokenVariable)
-    {
-        var packages = ArtifactsDirectory.GlobFiles("*.nupkg");
-
-        DotNetNuGetPush(s => s
-            .SetSource(githubPackageSource)
-            .SetApiKey(Environment.GetEnvironmentVariable(githubTokenVariable))
-            .CombineWith(packages, (s, p) => s
-                .SetTargetPath(p)));
-    }
 
     IEnumerable<AbsolutePath> GetPackageProjects() => SourceDirectory.GlobFiles("**/**.csproj");
 

@@ -20,7 +20,6 @@ on:
   push:
     branches:
       - main
-      - develop
 
 jobs:
   ubuntu-latest:
@@ -37,7 +36,7 @@ jobs:
             .nuke/temp
             ~/.nuget/packages
           key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
-      - name: Run './build.cmd Clean NugetPush'
-        run: ./build.cmd Clean NugetPush
+      - name: Run './build.cmd NuGetPush'
+        run: ./build.cmd NuGetPush
         env:
           NuGetApiKey: ${{ secrets.NUGET_API_KEY }}

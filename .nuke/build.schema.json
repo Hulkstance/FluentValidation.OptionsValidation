@@ -51,7 +51,7 @@
           "type": "string",
           "default": "Secrets must be entered via 'nuke :secrets [profile]'"
         },
-        "NuGetPublishUrl": {
+        "NuGetApiUrl": {
           "type": "string"
         },
         "Partition": {
@@ -82,7 +82,7 @@
               "Clean",
               "Compile",
               "Install",
-              "NugetPush",
+              "NuGetPush",
               "Pack",
               "Restore"
             ]
@@ -101,7 +101,7 @@
               "Clean",
               "Compile",
               "Install",
-              "NugetPush",
+              "NuGetPush",
               "Pack",
               "Restore"
             ]
