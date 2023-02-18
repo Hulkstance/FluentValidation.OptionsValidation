@@ -45,6 +45,7 @@ partial class Build
             DotNetNuGetPush(s => s
                 .SetSource(NuGetApiUrl)
                 .SetApiKey(NuGetApiKey)
+                .EnableSkipDuplicate()
                 .CombineWith(packages, (s, p) => s
                     .SetTargetPath(p)));
         });
