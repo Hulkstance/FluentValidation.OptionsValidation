@@ -32,19 +32,13 @@ partial class Build
     Target Pack => _ => _
         .Description("Packs the project")
         .DependsOn(Compile)
-        .OnlyWhenStatic(() => GitRepository.CurrentCommitHasVersionTag())
         .Produces(ArtifactsDirectory / "*.nupkg")
         .Executes(() =>
         {
-            var version = GitRepository.GetLatestVersionTag();
-
-            Log.Information("Version: {Version}", version);
-
             DotNetPack(s => s
                 .SetProject(Solution.GetProject("FluentValidation.OptionsValidation"))
                 .SetConfiguration(Configuration)
                 .SetOutputDirectory(ArtifactsDirectory)
-                .SetVersion(version.ToString())
                 .EnableNoRestore()
                 .EnableNoBuild());
         });
