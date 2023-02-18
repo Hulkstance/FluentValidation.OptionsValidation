@@ -49,14 +49,17 @@
         },
         "NuGetApiKey": {
           "type": "string",
+          "description": "NuGet API Key",
           "default": "Secrets must be entered via 'nuke :secrets [profile]'"
-        },
-        "NuGetApiUrl": {
-          "type": "string"
         },
         "Partition": {
           "type": "string",
           "description": "Partition to use on CI"
+        },
+        "PersonalAccessToken": {
+          "type": "string",
+          "description": "GitHub Personal Access Token",
+          "default": "Secrets must be entered via 'nuke :secrets [profile]'"
         },
         "Plan": {
           "type": "boolean",
@@ -81,9 +84,11 @@
             "enum": [
               "Clean",
               "Compile",
+              "GitHubPush",
               "Install",
               "NuGetPush",
               "Pack",
+              "PublishGithubRelease",
               "Restore"
             ]
           }
@@ -100,9 +105,11 @@
             "enum": [
               "Clean",
               "Compile",
+              "GitHubPush",
               "Install",
               "NuGetPush",
               "Pack",
+              "PublishGithubRelease",
               "Restore"
             ]
           }
