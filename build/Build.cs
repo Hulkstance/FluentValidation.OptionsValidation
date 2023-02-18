@@ -1,4 +1,3 @@
-using _build;
 using Nuke.Common;
 using Nuke.Common.CI;
 using Nuke.Common.IO;
@@ -66,22 +65,12 @@ partial class Build : NukeBuild
         .DependsOn(Install, Restore)
         .Executes(() =>
         {
-            var settings = new DotNetBuildSettings()
+            DotNetBuild(s => s
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
-                .EnableNoRestore();
-
-            if (GitRepository.CurrentCommitHasVersionTag())
-            {
-                var version = GitRepository.GetLatestVersionTag();
-
-                settings = settings
-                    .SetVersion(version.ToString())
-                    .SetAssemblyVersion($"{version.Major}.0.0.0")
-                    .SetInformationalVersion(version.ToString())
-                    .SetFileVersion(version.ToString());
-            }
-
-            DotNetBuild(settings);
+                .SetAssemblyVersion(GitVersion.AssemblySemVer)
+                .SetFileVersion(GitVersion.AssemblySemFileVer)
+                .SetInformationalVersion(GitVersion.InformationalVersion)
+                .EnableNoRestore());
         });
 }
