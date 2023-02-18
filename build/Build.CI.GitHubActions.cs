@@ -7,7 +7,7 @@ using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
-[GitHubActions("release-main",
+[GitHubActions("CI",
     GitHubActionsImage.UbuntuLatest,
     FetchDepth = 0,
     AutoGenerate = true,

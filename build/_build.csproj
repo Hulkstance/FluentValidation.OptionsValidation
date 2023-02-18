@@ -19,8 +19,4 @@
     <Folder Include="ci" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="..\.github\workflows\release-main.yml" />
-  </ItemGroup>
-
 </Project>
