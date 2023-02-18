@@ -12,7 +12,8 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
     AutoGenerate = true,
     OnPushBranches = new[] { "main", "develop" },
     ImportSecrets = new[] { nameof(NuGetApiKey) },
-    InvokedTargets = new[] { nameof(Clean), nameof(NugetPush) })]
+    InvokedTargets = new[] { nameof(Clean), nameof(NugetPush) },
+    FetchDepth = 0)]
 partial class Build
 {
     [Parameter] readonly string NuGetPublishUrl = "https://api.nuget.org/v3/index.json";
