@@ -56,8 +56,7 @@ partial class Build : NukeBuild
 
             DotNetToolInstall(s => s
                 .SetPackageName("GitVersion.Tool")
-                .EnableGlobal()
-                .SetVersion("5.12.0"));
+                .EnableGlobal());
         });
 
     Target Compile => _ => _
