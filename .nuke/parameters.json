@@ -1,5 +1,4 @@
 {
   "$schema": "./build.schema.json",
-  "Solution": "FluentValidation.OptionsValidation.sln",
-  "NuGetApiKey": "v1:2m8o5ICS1WccfudJY0k8KwnTHVFjMNOW13xoV6V1piZealbaB4aldphPBsNSZpB3"
+  "Solution": "FluentValidation.OptionsValidation.sln"
 }
