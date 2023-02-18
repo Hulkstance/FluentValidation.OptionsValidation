@@ -25,9 +25,6 @@ partial class Build
         {
             DotNetPack(s => s
                 .SetConfiguration(Configuration)
-                .SetAssemblyVersion(GitVersion.AssemblySemVer)
-                .SetFileVersion(GitVersion.AssemblySemFileVer)
-                .SetInformationalVersion(GitVersion.InformationalVersion)
                 .SetVersion(GitVersion.NuGetVersionV2)
                 .SetOutputDirectory(ArtifactsDirectory)
                 .EnableNoBuild()
@@ -37,6 +34,7 @@ partial class Build
     Target NuGetPush => _ => _
         .DependsOn(Pack)
         .OnlyWhenDynamic(() => IsCiBuild() && IsStableOrRelease())
+        .Requires(() => NuGetApiUrl)
         .Requires(() => NuGetApiKey)
         .Executes(() =>
         {
