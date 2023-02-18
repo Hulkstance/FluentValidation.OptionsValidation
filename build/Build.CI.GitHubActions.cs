@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using _build;
+using NuGet.Versioning;
 using Nuke.Common;
 using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.Git;
@@ -8,6 +10,7 @@ using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitHub;
 using Nuke.Common.Utilities.Collections;
 using Nuke.GitHub;
+using Serilog;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using static Nuke.GitHub.GitHubTasks;
 using static Nuke.Common.IO.PathConstruction;
@@ -29,16 +32,19 @@ partial class Build
     Target Pack => _ => _
         .Description("Packs the project")
         .DependsOn(Compile)
+        .OnlyWhenStatic(() => GitRepository.CurrentCommitHasVersionTag())
         .Produces(ArtifactsDirectory / "*.nupkg")
         .Executes(() =>
         {
+            var version = GitRepository.GetLatestVersionTag();
+
+            Log.Information("Version: {Version}", version);
+
             DotNetPack(s => s
                 .SetProject(Solution.GetProject("FluentValidation.OptionsValidation"))
                 .SetConfiguration(Configuration)
                 .SetOutputDirectory(ArtifactsDirectory)
-                .SetAssemblyVersion(GitVersion.AssemblySemVer)
-                .SetFileVersion(GitVersion.AssemblySemFileVer)
-                .SetInformationalVersion(GitVersion.InformationalVersion)
+                .SetVersion(version.ToString())
                 .EnableNoRestore()
                 .EnableNoBuild());
         });
