@@ -2,7 +2,7 @@
 
 ![CI](https://github.com/Hulkstance/FluentValidation.OptionsValidation/actions/workflows/CI.yml/badge.svg)
 [![NuGet](https://img.shields.io/nuget/vpre/Hulkstance.FluentValidation.OptionsValidation.svg)](https://www.nuget.org/packages/Hulkstance.FluentValidation.OptionsValidation)
-[![NuGet](https://img.shields.io/nuget/dt/Hulkstance.FluentValidation.OptionsValidation.svg)](https://www.nuget.org/packages/Hulkstance.FluentValidation.OptionsValidation) 
+[![NuGet](https://img.shields.io/nuget/dt/Hulkstance.FluentValidation.OptionsValidation.svg)](https://www.nuget.org/packages/Hulkstance.FluentValidation.OptionsValidation)
 
 ## Install
 
@@ -27,7 +27,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<Program>(ServiceLifetime.Si
 
 builder.Services
     .AddOptions<ExampleOptions>()
-    .Bind(builder.Configuration.GetSection(ExampleOptions.SectionName))
+    .BindConfiguration(ExampleOptions.SectionName)
     .ValidateFluentValidation()
     .ValidateOnStart();
 ```

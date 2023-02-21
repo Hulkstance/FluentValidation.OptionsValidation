@@ -8,7 +8,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<Program>(ServiceLifetime.Si
 
 builder.Services
     .AddOptions<ExampleOptions>()
-    .Bind(builder.Configuration.GetSection(ExampleOptions.SectionName))
+    .BindConfiguration(ExampleOptions.SectionName)
     .ValidateFluentValidation()
     .ValidateOnStart();
 
