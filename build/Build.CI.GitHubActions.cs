@@ -32,13 +32,17 @@ partial class Build
         .Produces(ArtifactsDirectory / "*.nupkg")
         .Executes(() =>
         {
-            DotNetPack(s => s
-                .SetProject(Solution.GetProject("FluentValidation.OptionsValidation"))
-                .SetConfiguration(Configuration)
-                .SetOutputDirectory(ArtifactsDirectory)
-                .SetVersion(GitVersion.SemVer)
-                .EnableNoRestore()
-                .EnableNoBuild());
+            Solution.GetProjects("FluentValidation.OptionsValidation*")
+                .ForEach(x =>
+                {
+                    DotNetPack(s => s
+                        .SetProject(Solution.GetProject(x))
+                        .SetConfiguration(Configuration)
+                        .SetOutputDirectory(ArtifactsDirectory)
+                        .SetVersion(GitVersion.SemVer)
+                        .EnableNoRestore()
+                        .EnableNoBuild());
+                });
         });
 
     Target NuGetPush => _ => _

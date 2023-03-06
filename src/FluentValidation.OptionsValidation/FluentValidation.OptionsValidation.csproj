@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Hulkstance.FluentValidation.OptionsValidation</PackageId>
     <Authors>Hulkstance</Authors>
     <Description>Adds FluentValidation support for IOptions validation.</Description>
